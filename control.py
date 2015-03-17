@@ -63,6 +63,7 @@ class control:
             self.mpdClient = self.mpdCheckVar(self.mpdClient)
 
         def mpdCheckVar(self, mpdClient):
+          
             while(True):
                 try:
                     if(mpdClient):
@@ -194,7 +195,8 @@ class control:
             print "playlists", pl
             pli = self.mpdClient.lsinfo(self.playlistloadsub)
             print "lsinfo", pli
-
+            print "plloadpos=",self.playlistloadpos
+            print "plloadsub=",self.playlistloadsub
             if(self.playlistloadpos > len(pli) - 1):
                 self.playlistloadpos = 0
             if(self.playlistloadpos == -1):
@@ -203,6 +205,7 @@ class control:
                 self.line2.setline("No music found")
             else:
                 plItem = pli[self.playlistloadpos]
+                print "plItem=",plItem
                 self.line2.clearq()
                 if 'playlist' in plItem:
                     self.line2.setline(plItem['playlist'])
@@ -392,6 +395,7 @@ class control:
                     if(bigTimeout > 0):
                         bigTimeout -= 1
                         if(bigTimeout == 0):
+                            print "BigTimeout clear"
                             self.music()
 
                     ifaceCheck -= 1
@@ -416,7 +420,7 @@ class control:
                                 self.line2.rmSpecial(SPECIAL_INTERNET)
                             ifaceCheck = 100
 
-                        time.sleep(.1)
+                    time.sleep(.1)
 
                     exceptcount = 0
 
@@ -443,6 +447,7 @@ class control:
             self.line2.setline("Starting up")
             self.displayThread = piDisplay(self.line1, self.line2)
             self.displayThread.start()
+            self.mpdCheckcount=0
 
             self.menuitem = 0
             self.playlistpos = 0

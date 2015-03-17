@@ -87,7 +87,6 @@ class piDisplay (threading.Thread):
                     self.lcd.home()
                     message = self.line1.getline() + "\n" \
                         + self.line2.getline()
-                    print "Update display:[" + message + "]"
                     self.lcd.message(message)
 
                 self.idleCount += 1
